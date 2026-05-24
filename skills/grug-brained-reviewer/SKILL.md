@@ -1,15 +1,17 @@
 ---
 name: grug-brained-reviewer
-description: Use when the user wants to inspect a software project for architecture improvements, simplify a codebase, identify refactoring candidates, produce an HTML architecture report, or apply grug-brained engineering patterns to reduce complexity. The skill explores the project organically with codebase-walking agents, surfaces candidate improvements as report cards, and then guides the chosen candidate through a design-grilling conversation before implementation.
+description: Use when the user wants to inspect a software project for architecture improvements, find refactoring candidates tied directly to grug-brained engineering patterns, and produce a sarcastic HTML report that names the complexity demon, the repo evidence, the simpler move, and the fence that prevents reckless cleanup.
 ---
 
 # Grug Brained Reviewer
 
 ## Purpose
 
-Find architecture improvements that reduce complexity without inventing ceremonial architecture. The work is discovery-first: walk the project, notice where understanding gets slow or brittle, connect those observations to grug-brained patterns, then render the evidence-backed candidates in an HTML report.
+Find architecture improvements that reduce complexity without inventing ceremonial architecture, which is how codebase becomes large stone wheel with Kubernetes YAML taped to side. The work is discovery-first: walk the project, notice where understanding gets slow or brittle, connect those observations directly to grug-brained patterns, then render the evidence-backed candidates in an HTML report.
 
 Load `references/grug-brained-patterns.md` before evaluating candidates.
+
+The voice should be grug-brained and sarcastic throughout: direct, concrete, suspicious of cleverness, and willing to call out enterprise fog machines when the evidence supports it. Do not write in baby-talk or copy text from grugbrain.dev. Paraphrase the spirit: complexity bad, abstraction expensive, code must prove it deserves to exist, future maintainer has small brain and many meetings.
 
 Invoking this skill means the user wants delegated explorer-agent work for the exploration phase. If the current runtime still requires a more explicit phrase before spawning agents, pause and ask the user to confirm: "Do you want me to spawn explorer sub-agents for this architecture review?"
 
@@ -39,11 +41,21 @@ Do not force a fixed checklist. Explore organically and let friction pull you th
 - **Chesterton's Fence for Code**: when code is ugly, duplicated, defensive, or oddly shaped, investigate history, tests, logs, callers, and edge cases before proposing removal.
 - **Keep Front Ends / Types / Parsers / Concurrency / Services Proportional**: note places where frameworks, type machinery, parser generators, visitor dispatch, async control flow, job systems, logging conventions, or service boundaries add more complexity than they contain.
 
-Keep notes as evidence: files, call paths, repeated concepts, confusing names, awkward APIs, missing tests, and the moment where comprehension slowed down.
+Keep notes as evidence: files, call paths, repeated concepts, confusing names, awkward APIs, missing tests, and the exact moment where comprehension slowed down and small grug brain began making warning noises.
+
+For every candidate, collect an explicit pattern chain:
+
+- **Grug pattern**: the named pattern from `references/grug-brained-patterns.md`.
+- **Code smell in this repo**: the concrete file/API/flow that matches the pattern.
+- **Why grug suspicious**: the simpler engineering principle being violated, stated plainly and a little sarcastically.
+- **Simpler move**: the refactor direction implied by the pattern.
+- **Fence**: the behavior, history, test, caller, or production constraint that must be understood before touching it.
+
+Do not include a candidate unless this chain can be filled with repo evidence. If the pattern connection is vibes-only, grug say no candidate, only architecture horoscope.
 
 ### 2. Produce an HTML candidate report
 
-Load and follow `HTML-REPORT.md`. It defines the output location, scaffold, candidate card format, diagram rules, and top recommendation section.
+Load and follow `HTML-REPORT.md`. It defines the output location, scaffold, candidate panel format, grug pattern mapping, tone rules, and top recommendation section.
 
 
 ### 3. Grill the selected candidate

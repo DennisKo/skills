@@ -1,6 +1,6 @@
 # HTML Report Template
 
-The architectural review is rendered as a single self-contained HTML file in the OS temp directory. Tailwind comes from a CDN. The report should be text-first, evidence-heavy, and easy to scan without relying on generated artwork.
+The architectural review is rendered as a single self-contained HTML file in the OS temp directory. Tailwind comes from a CDN. The report should be text-first, evidence-heavy, sarcastic in the grug-brained style, and easy to scan without relying on generated artwork.
 
 ## Required Scaffold
 
@@ -53,7 +53,61 @@ Use this structure:
 - **Candidate review workspace**: a selector plus one visible candidate panel at a time. Do not render all candidate cards as one long scrolling list.
 - **Top recommendation**: one larger final card naming the first candidate to tackle and why.
 
-Keep the page editorial and scannable, not dashboard-like. Use generous whitespace, restrained color, and concrete codebase names.
+Keep the page editorial and scannable, not dashboard-like. Use generous whitespace, restrained color, concrete codebase names, and dry grug-brained commentary where it clarifies the cost of complexity.
+
+## Tone
+
+Use grug-brained sarcasm everywhere user-facing text appears: headings, summaries, candidate selectors, cautions, and recommendation copy. The tone should be over-the-top enough to make complexity look ridiculous, but the technical claims must stay evidence-backed.
+
+Good tone:
+
+- "Many tiny abstraction boxes now require developer to remember sacred order of button clicks and provider wrappers. This is not architecture, this is memory tax."
+- "Generic config object has achieved final form: no caller knows what is required, but all callers must bring tribute."
+- "Before deleting ugly code, inspect fence. Sometimes ugly code is load-bearing ugly code."
+
+Bad tone:
+
+- Mean personal attacks.
+- Random jokes that do not explain the engineering problem.
+- Baby-talk that makes the report hard to read.
+- Long quotes or copied prose from grugbrain.dev. Attribute inspiration elsewhere if needed, but write original report text.
+
+## Grug Pattern Mapping
+
+Every candidate must be visibly tied to `references/grug-brained-patterns.md`. Do not merely list pattern names at the bottom like decorative architecture confetti.
+
+Add a `Grug diagnosis` section near the top of each candidate panel with this shape:
+
+| Field | Required content |
+| --- | --- |
+| Pattern | Exact pattern name from `references/grug-brained-patterns.md`. |
+| Repo evidence | Specific files, functions, APIs, tests, or call paths proving the pattern applies. |
+| Why grug suspicious | Short sarcastic explanation of the complexity cost. |
+| Simpler move | The refactor direction implied by the pattern. |
+| Fence | What must be understood before changing it. |
+
+If a candidate maps to multiple patterns, choose one primary pattern and up to two supporting patterns. Explain the primary pattern deeply. Supporting patterns can be one sentence each. If every pattern seems to apply, grug suspect report is doing astrology; narrow the claim.
+
+Use the pattern names as the organizing logic for recommendations:
+
+- `Complexity Refusal`: recommend deleting, declining, or narrowing machinery whose value is not proven.
+- `Pragmatic Compromise / 80-20 Delivery`: recommend a smaller useful shape instead of maximal feature machinery.
+- `Delay Factoring Until Shape Emerges`: recommend collapsing premature abstractions or postponing generic boundaries.
+- `Prototype to Ground Abstraction`: recommend proving an abstract idea with concrete code before blessing it as architecture.
+- `Prefer Integration Tests at Stable Cut Points`: recommend tests at behavior boundaries before moving internals.
+- `Small, Shore-Close Refactoring`: recommend the smallest reversible first step.
+- `Chesterton's Fence for Code`: recommend investigation before deleting suspicious old code.
+- `Type Systems as Developer Assistance`: recommend types that help navigation and valid usage, not ceremony that impresses the compiler while confusing humans.
+- `Reduce Expression Complexity`: recommend named intermediate concepts over boolean soup.
+- `DRY With Judgment`: recommend keeping harmless duplication when the abstraction would be worse.
+
+Each candidate should include at least one direct "grug verdict" sentence:
+
+```html
+<p class="rounded-lg border-l-4 border-slate-900 bg-white p-4 text-sm font-medium text-slate-800">
+  Grug verdict: current shape asks every caller to understand private ceremony. Caller has job already. Make small door, hide machinery behind it.
+</p>
+```
 
 ## Candidate Review Workspace
 
@@ -114,13 +168,15 @@ Each candidate is an `<article>` panel with this content:
 
 - **Title**: action-oriented, specific to the architecture move.
 - **Recommendation badge**: exactly one of `Strong`, `Worth exploring`, or `Speculative`.
+- **Grug verdict**: one sharp, sarcastic sentence naming the complexity cost and the simpler direction.
+- **Grug diagnosis**: a compact table connecting repo evidence to one primary pattern from `references/grug-brained-patterns.md`, with optional supporting patterns.
 - **Files involved**: concrete files/modules and their role in the candidate.
 - **Observed friction**: why the current shape slows understanding, change, testing, debugging, or removal.
 - **Current shape**: concise explanation of how the relevant code is organized today, with concrete file paths, call paths, ownership boundaries, and examples.
 - **Proposed change**: plain-English description of the deeper/simpler shape.
 - **Why it helps**: benefits framed as reduced concepts, better locality, narrower interface, clearer tests, easier debugging, or smaller blast radius.
 - **Validation path**: the tests, manual checks, or inspection steps that would prove behavior survived the change.
-- **Grug patterns used**: cite pattern names from `references/grug-brained-patterns.md`.
+- **Grug patterns used**: cite the primary and supporting pattern names from `references/grug-brained-patterns.md`; do not invent pattern names.
 - **Cautions / fences**: what must be understood or protected before changing the code.
 
 The prose should carry the explanation. Use short paragraphs, evidence lists, and small code-path tables where they help. If a relationship is hard to explain, write the current path and proposed path as ordered bullets rather than drawing it.
@@ -140,6 +196,7 @@ Include:
 
 - Candidate title.
 - Recommendation strength.
+- Primary grug pattern and one-sentence grug verdict.
 - One paragraph explaining why this should go first.
 - The smallest reversible first step.
 - Main fence or risk to verify before coding.
