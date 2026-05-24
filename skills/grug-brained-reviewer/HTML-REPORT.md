@@ -49,11 +49,29 @@ The file should work by opening it directly in a browser. Do not add a build ste
 
 Use this structure:
 
-- **Header**: repo name, review date, short one-line purpose, and a compact legend for recommendation strength, evidence, seam, and fence.
+- **Header**: repo name, review date, review scope, short one-line purpose, and a compact legend for recommendation strength, evidence, seam, and fence.
 - **Candidate review workspace**: a selector plus one visible candidate panel at a time. Do not render all candidate cards as one long scrolling list.
 - **Top recommendation**: one larger final card naming the first candidate to tackle and why.
 
 Keep the page editorial and scannable, not dashboard-like. Use generous whitespace, restrained color, concrete codebase names, and dry grug-brained commentary where it clarifies the cost of complexity.
+
+## Scope
+
+The report must state the review mode in the header:
+
+- `Full codebase review`: use when the user invoked the skill without a narrower target.
+- `Scoped review`: use when the user requested a PR, local changes, staged changes, branch/range, directory, file, feature, or subsystem.
+
+For scoped reports, include a compact scope box near the top:
+
+```html
+<section class="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+  <p class="font-semibold">Scope: Scoped review of local changes touching app/billing</p>
+  <p class="mt-1">Grug looked only at requested cave and directly connected callers/tests. Other cave monsters may exist. They are not today's monster.</p>
+</section>
+```
+
+Every candidate in a scoped report must explain how it relates to the requested scope. Do not promote unrelated architecture findings to candidates. If a nearby issue is suspicious but outside scope, put it in a short "Out of scope cave smell" note instead of the recommendation list.
 
 ## Tone
 

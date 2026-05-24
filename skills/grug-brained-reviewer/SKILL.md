@@ -19,9 +19,37 @@ Progress updates should emphasize the current discovery step, not the final arti
 
 ## Workflow
 
-### 1. Explore the project
+### 1. Determine review scope
 
-Start by forming a light map of the repository: languages, frameworks, entry points, test structure, major modules, data flow, and developer workflows.
+Before exploring, classify the request:
+
+- **Full codebase review**: the user invokes the skill with no extra target or says something broad like "review this codebase", "find architecture improvements", or "what should we simplify here". In this mode, map the current repository and look for the highest-signal architecture candidates across the project.
+- **Scoped review**: the user names a PR, branch, commit range, local changes, staged changes, a directory, a file, a feature, or a subsystem. In this mode, review only the requested scope and the smallest amount of surrounding context needed to understand it. Do not wander the whole codebase because grug got excited and found new cave.
+
+Examples of scoped review triggers:
+
+- "review the current local changes"
+- "review this PR"
+- "review `app/billing`"
+- "use this on `src/server/auth.ts`"
+- "look at the checkout flow"
+- "review changes since main"
+
+For scoped review:
+
+- Identify the target explicitly in progress updates and in the report header.
+- For local changes, start with `git status --short`, then inspect the relevant diff (`git diff`, `git diff --staged`, or the requested range). Include untracked files only when they are part of the requested scope.
+- For PR or branch review, inspect the PR diff or compare range first, then read surrounding files only as needed to understand call paths and fences.
+- For directory/file review, stay inside that path unless callers, tests, or boundaries are needed to understand the candidate.
+- If the requested scope is ambiguous, make the smallest reasonable interpretation and state it. Ask only when the ambiguity would make the review misleading.
+- Candidate evidence must come from the requested scope or directly connected context. Findings outside scope can be mentioned only as "out of scope cave smell" and must not become candidates unless the user asks for a broader review.
+
+### 2. Explore the project
+
+Start by forming a light map appropriate to the review scope:
+
+- In full codebase mode, map languages, frameworks, entry points, test structure, major modules, data flow, and developer workflows.
+- In scoped mode, map the requested files/changes first, then only the directly connected callers, callees, tests, and ownership boundaries needed to understand the scope.
 
 Use the agent/sub-agent tool when available. Spawn explorer agents for distinct, well-scoped codebase walks; this is part of the skill's intended workflow, not an optional enhancement. For example:
 
@@ -31,6 +59,8 @@ Use the agent/sub-agent tool when available. Spawn explorer agents for distinct,
 - "Map frontend state/data flow and places where behavior is split across too many files."
 
 When spawning explorer agents, assign each one a working name in the task prompt and in your own progress/reporting: `Grug Brained Dev #1`, `Grug Brained Dev #2`, and so on. The underlying agent UI may still choose its own system nickname because the spawn API does not expose a display-name field; grug cannot rename tool if tool has no rename hole. Still use the numbered grug names consistently when summarizing what each explorer found.
+
+In scoped mode, each explorer prompt must include the scope boundary and an explicit instruction not to report unrelated candidates. Example: "Grug Brained Dev #1: review only the local changes touching `app/billing` and directly connected tests/callers. Do not hunt the whole repo for unrelated architecture crimes, even if repo contains many shiny crimes."
 
 Do not force a fixed checklist. Explore organically and let friction pull you through the code. Use the grug-brained patterns as lenses while you move:
 
@@ -55,12 +85,12 @@ For every candidate, collect an explicit pattern chain:
 
 Do not include a candidate unless this chain can be filled with repo evidence. If the pattern connection is vibes-only, grug say no candidate, only architecture horoscope.
 
-### 2. Produce an HTML candidate report
+### 3. Produce an HTML candidate report
 
 Load and follow `HTML-REPORT.md`. It defines the output location, scaffold, candidate panel format, grug pattern mapping, tone rules, and top recommendation section.
 
 
-### 3. Grill the selected candidate
+### 4. Grill the selected candidate
 
 When the user picks a candidate, use the `grill-me` skill if it is installed or available. If it is not available, run the same style of grilling conversation directly.
 
