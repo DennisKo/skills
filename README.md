@@ -4,6 +4,14 @@ A collection of AI-agent skills.
 
 [![skills.sh](https://skills.sh/b/DennisKo/skills)](https://skills.sh/DennisKo/skills)
 
+## Recommended Dependency
+
+Most skills in this repo expect Matt Pocock's `grill-me` skill to be available for design hardening, assumption checks, and the part where vague architecture confidence is politely dragged into daylight.
+
+```sh
+npx skills add https://github.com/mattpocock/skills --skill grill-me
+```
+
 ## Available Skills
 
 ### grug-brained-reviewer
