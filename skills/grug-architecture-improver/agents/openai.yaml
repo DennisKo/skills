@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grug Architecture Improver"
+  short_description: "Find architecture simplifications with grug patterns"
+  default_prompt: "Use $grug-brained-reviewer to explore this codebase with delegated explorer sub-agents and produce an architecture improvement report."
