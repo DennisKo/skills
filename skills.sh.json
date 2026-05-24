@@ -4,7 +4,7 @@
   "groupings": [
     {
       "title": "Architecture",
-      "description": "Skills for finding simpler code shapes and evidence-backed refactoring candidates.",
+      "description": "Skills for finding simpler code shapes before complexity demon gets promoted to platform architecture. Inspired by grugbrain.dev.",
       "skills": ["grug-brained-reviewer"]
     }
   ]
