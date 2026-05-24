@@ -30,6 +30,8 @@ Use the agent/sub-agent tool when available. Spawn explorer agents for distinct,
 - "Inspect tests and identify stable cut points versus brittle implementation tests."
 - "Map frontend state/data flow and places where behavior is split across too many files."
 
+When spawning explorer agents, assign each one a working name in the task prompt and in your own progress/reporting: `Grug Brained Dev #1`, `Grug Brained Dev #2`, and so on. The underlying agent UI may still choose its own system nickname because the spawn API does not expose a display-name field; grug cannot rename tool if tool has no rename hole. Still use the numbered grug names consistently when summarizing what each explorer found.
+
 Do not force a fixed checklist. Explore organically and let friction pull you through the code. Use the grug-brained patterns as lenses while you move:
 
 - **Complexity Refusal / 80-20 Delivery**: notice machinery whose value is unclear, features implemented more generally than the product seems to need, or flows where the simple case pays for every rare case.
