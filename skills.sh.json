@@ -3,8 +3,8 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "Architecture",
-      "description": "Skills for finding simpler code shapes before complexity demon gets promoted to platform architecture. Inspired by grugbrain.dev.",
+      "title": "How I AI with Pi",
+      "description": "Personal Pi setup notes and skills for agentic coding with subagents, web access, Plannotator, and grug-brained architecture review.",
       "skills": ["grug-brained-reviewer"]
     }
   ]
